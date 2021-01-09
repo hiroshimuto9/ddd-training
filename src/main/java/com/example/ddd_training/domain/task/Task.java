@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 @Getter
 public class Task {
-  private Long id;
+  private TaskId id;
   private TaskStatus taskStatus;
   private String name;
   private int postponeCount;
@@ -16,6 +16,7 @@ public class Task {
     if (name == null || dueDate == null) {
       throw  new IllegalArgumentException("必須項目が選択されていません。");
     }
+    this.id = new TaskId();
     this.name = name;
     this.dueDate = dueDate;
     this.postponeCount = 0;
