@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 public class Task {
-  private TaskId id;
+  private final TaskId id;
   private TaskStatus taskStatus;
   private String name;
   private int postponeCount;
