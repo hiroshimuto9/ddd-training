@@ -18,6 +18,6 @@ public class TaskCreateUseCase {
   public TaskId createTask(String name, LocalDate dueDate) {
     Task task = new Task(name, dueDate);
     taskRepository.save(task);
-    return task.getId();
+    return task.getTaskId();
   }
 }
