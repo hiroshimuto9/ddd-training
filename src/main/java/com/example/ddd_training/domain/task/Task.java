@@ -1,5 +1,6 @@
 package com.example.ddd_training.domain.task;
 
+import com.example.ddd_training.domain.shared.DomainException;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -28,10 +29,14 @@ public class Task {
   // 期限の延期処理
   // Setterを使っていないため、コンストラクタの状態変更はこの処理を通さないと行えないと判断しやすい。
   public void postpone() {
-    if (postponeCount >= MAX_POSTPONE_COUNT) {
-      throw new IllegalArgumentException("最大延期回数を超えています");
-    }
+    validatePostPoneCount();
     dueDate.plusDays(1L);
     postponeCount++;
+  }
+
+  private void validatePostPoneCount() throws DomainException {
+    if (this.postponeCount >= MAX_POSTPONE_COUNT) {
+      throw new DomainException("最大延期回数を超えています");
+    }
   }
 }
