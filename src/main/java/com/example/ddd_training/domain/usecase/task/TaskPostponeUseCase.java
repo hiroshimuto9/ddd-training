@@ -1,4 +1,4 @@
-package com.example.ddd_training.domain.usecase;
+package com.example.ddd_training.domain.usecase.task;
 
 import com.example.ddd_training.domain.shared.DomainException;
 import com.example.ddd_training.domain.task.Task;
