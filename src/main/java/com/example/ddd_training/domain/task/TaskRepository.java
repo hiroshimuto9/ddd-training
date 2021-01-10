@@ -1,7 +1,7 @@
 package com.example.ddd_training.domain.task;
 
 public interface TaskRepository {
-  Task findById(Long id);
+  Task findById(TaskId id);
 
   void save(Task task);
 }
