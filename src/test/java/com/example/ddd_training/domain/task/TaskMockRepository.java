@@ -12,6 +12,6 @@ public class TaskMockRepository implements TaskRepository {
 
   @Override
   public void save(Task task) {
-    map.put(task.getId(), task);
+    map.put(task.getTaskId(), task);
   }
 }
