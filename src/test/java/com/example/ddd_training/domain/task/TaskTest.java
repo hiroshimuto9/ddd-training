@@ -26,6 +26,24 @@ class TaskTest {
       assertEquals(task.getPostponeCount(), 0);
       assertEquals(task.getTaskStatus(), TaskStatus.UNDONE);
     }
+  }
 
+  @Nested
+  class PostponeTest {
+    @Test
+    protected  void タスク延期1回目が成功し_延期回数が1増えて期日が1日後になる() {
+      // given: 延期回数0回のタスク
+      LocalDate dueDate = LocalDate.of(2021,1,14);
+      Task task = new Task("taskName", dueDate);
+
+      // when: タスクを延期すると
+      task.postpone();
+
+      // then:
+      // タスクの延期回数が1増える
+      // タスク期限が1日追加される
+      assertEquals(task.getPostponeCount(), 1);
+      assertEquals(task.getDueDate(), dueDate.plusDays(1));
+    }
   }
 }
