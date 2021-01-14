@@ -55,17 +55,32 @@ class TaskTest {
       LocalDate dueDate = LocalDate.of(2021,1,14);
       Task task = new Task("taskName", dueDate);
 
-      // when: タスクを3回延期
+      // タスクを3回延期
       task.postpone();
       task.postpone();
       task.postpone();
 
-      // then: 4回目の延期を行うと例外が発生する
+      // when: 4回目の延期を行うと例外が発生する
       Executable target = () -> task.postpone();
 
-      // given: 例外が発生する
+      // then: 例外が発生する
       DomainException exception = assertThrows(DomainException.class, target);
       assertEquals(exception.getMessage(), "最大延期回数を超えています");
+    }
+  }
+
+  @Nested
+  class DoneTest {
+    @Test
+    protected void タスクを完了させるとステータスが完了状態になる() {
+      // given: 新規生成状態のタスク
+      Task task = new Task("taskName", LocalDate.now());
+
+      // when: タスクを完了にする
+      task.done();
+
+      // then: ステータスが完了になる
+      assertEquals(task.getTaskStatus(), TaskStatus.DONE);
     }
   }
 }
