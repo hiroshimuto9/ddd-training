@@ -1,10 +1,13 @@
 package com.example.ddd_training.domain.task;
 
+import com.example.ddd_training.domain.shared.DomainException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SuppressWarnings("NonAsciiCharacters")
 class TaskTest {
@@ -44,6 +47,25 @@ class TaskTest {
       // タスク期限が1日追加される
       assertEquals(task.getPostponeCount(), 1);
       assertEquals(task.getDueDate(), dueDate.plusDays(1));
+    }
+
+    @Test
+    protected void タスクの4回目の延期が失敗する() {
+      // given: 3回延期されているタスク
+      LocalDate dueDate = LocalDate.of(2021,1,14);
+      Task task = new Task("taskName", dueDate);
+
+      // when: タスクを3回延期
+      task.postpone();
+      task.postpone();
+      task.postpone();
+
+      // then: 4回目の延期を行うと例外が発生する
+      Executable target = () -> task.postpone();
+
+      // given: 例外が発生する
+      DomainException exception = assertThrows(DomainException.class, target);
+      assertEquals(exception.getMessage(), "最大延期回数を超えています");
     }
   }
 }
