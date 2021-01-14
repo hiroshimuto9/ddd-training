@@ -39,4 +39,8 @@ public class Task {
       throw new DomainException("最大延期回数を超えています");
     }
   }
+
+  public void done() {
+    this.taskStatus = TaskStatus.DONE;
+  }
 }
