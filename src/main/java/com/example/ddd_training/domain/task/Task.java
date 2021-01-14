@@ -30,8 +30,8 @@ public class Task {
   // Setterを使っていないため、コンストラクタの状態変更はこの処理を通さないと行えないと判断しやすい。
   public void postpone() {
     validatePostPoneCount();
-    dueDate.plusDays(1L);
-    postponeCount++;
+    this.dueDate = this.dueDate.plusDays(1L);
+    this.postponeCount = this.postponeCount + 1;
   }
 
   private void validatePostPoneCount() throws DomainException {
